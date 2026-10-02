@@ -1,0 +1,13 @@
+{
+  "name": "app-glowup",
+  "owner": {
+    "name": "Halal Uddin"
+  },
+  "plugins": [
+    {
+      "name": "app-glowup",
+      "source": "./",
+      "description": "/onboard: animated iOS onboarding in SwiftUI. /promo: ads, App Store previews, screenshots and UGC kits from your app's real features."
+    }
+  ]
+}

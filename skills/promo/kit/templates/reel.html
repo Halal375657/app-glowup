@@ -1,0 +1,225 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"hook","type":"enum","label":"Hook","default":"a","options":[{"value":"a","label":"A: demo"},{"value":"b","label":"B: contrast"},{"value":"c","label":"C: curiosity"}]}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Reel 9:16</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="kit/promo.css" />
+    <style>
+      #root {
+        --safe-top: 270px;
+        --safe-bottom: 672px;
+        --safe-side: 65px;
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+      /* Hook footage is a root-level sibling after #s1, so lift the caption and scrim above it. */
+      #hook-a-media,
+      #hook-c-media {
+        z-index: 1;
+      }
+      /* Hook C shows the app's slider full-screen: caption on top instead, over the app's own header. */
+      #root[data-hook="c"] .scrim-top {
+        inset: 0 0 auto 0;
+        height: 720px;
+        background: linear-gradient(#000 0%, #000 74%, transparent);
+      }
+      #root[data-hook="c"] .hook-cap {
+        top: 300px;
+      }
+      /* Move the key detail (the whole point) below the platform's top UI strip. */
+      #hook-a-media {
+        top: 200px;
+      }
+      .scrim-top,
+      .hook-cap {
+        z-index: 2;
+      }
+      .hook-cap {
+        position: absolute;
+        top: 1010px;
+        left: 65px;
+        right: 65px;
+        display: flex;
+        justify-content: center;
+      }
+      .scrim-top {
+        position: absolute;
+        inset: 860px 0 0 0;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.92) 30%, #000 60%);
+      }
+      #demo-phone {
+        --w: 480px;
+        left: 300px;
+        top: 420px;
+      }
+      #demo-cap {
+        position: absolute;
+        top: 290px;
+        left: 65px;
+        right: 65px;
+        display: flex;
+        justify-content: center;
+      }
+      .pair {
+        position: absolute;
+        top: 520px;
+        left: 65px;
+        right: 65px;
+        display: flex;
+        gap: 22px;
+      }
+      .card {
+        position: relative;
+        flex: 1;
+        height: 600px;
+        border-radius: 36px;
+        overflow: hidden;
+        border: 2px solid rgba(255, 255, 255, 0.14);
+      }
+      /* Zoom on the area that changes: show roughly x 250-1000, y 150-1070 of the 1206x2622 app still. */
+      .card img {
+        position: absolute;
+        width: 161%;
+        height: auto;
+        left: -33%;
+        top: -21%;
+      }
+      .card .pill {
+        position: absolute;
+        left: 20px;
+        top: 20px;
+      }
+      #proof-head {
+        position: absolute;
+        top: 285px;
+        left: 65px;
+        right: 65px;
+        text-align: center;
+      }
+      #proof-head .headline {
+        font-size: 80px;
+        line-height: 1.12;
+      }
+      #proof-foot {
+        position: absolute;
+        top: 1150px;
+        left: 0;
+        right: 0;
+        text-align: center;
+      }
+      #end-stack {
+        position: absolute;
+        top: 270px;
+        bottom: 672px;
+        justify-content: center;
+        left: 65px;
+        right: 65px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 34px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="reel" data-start="0" data-duration="15" data-width="1080" data-height="1920">
+      <!-- Scene 1: hook (0–2.6 s). Three variants; the "hook" variable picks one. -->
+      <section id="s1" class="clip" data-start="0" data-duration="2.6">
+        <div id="hook-a" class="layer"></div>
+        <div id="hook-b" class="layer backdrop">
+          <div class="pair" style="top: 520px">
+            <div class="card" data-layout-allow-overflow><img src="assets/still-before.png" alt="" /><span class="pill"><span class="dot"></span>Before</span></div>
+            <div class="card" data-layout-allow-overflow><img src="assets/still-after.png" alt="" /><span class="pill on"><span class="dot"></span>After</span></div>
+          </div>
+        </div>
+        <div id="hook-c" class="layer"></div>
+        <div class="scrim-top"></div>
+        <div class="hook-cap"><span id="hook-text" class="caption">watch the <span class="hl">result</span> happen</span></div>
+      </section>
+      <!-- Hook footage lives at the root (a timed video can't sit inside a timed section). -->
+      <div id="hook-a-media" class="layer">
+        <video id="v-hook-a" class="fill" src="assets/S1.mp4" muted playsinline data-start="0" data-duration="2.6" data-media-start="4.0"></video>
+      </div>
+      <div id="hook-c-media" class="layer">
+        <video id="v-hook-c" class="fill" src="assets/S2.mp4" muted playsinline data-start="0" data-duration="2.6" data-media-start="3.1"></video>
+      </div>
+
+      <!-- Scene 2: the real feature in a phone (2.6–8.2 s). -->
+      <section id="s2" class="clip backdrop" data-start="2.6" data-duration="5.6">
+        <div id="demo-cap"><span class="caption">one tap. <span class="hl">real result.</span></span></div>
+      </section>
+      <div id="demo-phone" class="phone">
+        <div class="phone-screen">
+          <video id="v-demo" class="fill" src="assets/S2.mp4" muted playsinline data-start="2.6" data-duration="5.6" data-media-start="3.0"></video>
+        </div>
+      </div>
+
+      <!-- Scene 3: proof, real app stills side by side (8.2–11.8 s). -->
+      <section id="s3" class="clip backdrop" data-start="8.2" data-duration="3.6">
+        <div id="proof-head"><div class="headline">Your promise.</div><div class="headline">In one line.</div></div>
+        <div class="pair">
+          <div class="card" data-layout-allow-overflow><img src="assets/still-before.png" alt="" /><span class="pill"><span class="dot"></span>Before</span></div>
+          <div class="card" data-layout-allow-overflow><img src="assets/still-after.png" alt="" /><span class="pill on"><span class="dot"></span>After</span></div>
+        </div>
+        <div id="proof-foot"><span class="footnote">Illustrative example</span></div>
+      </section>
+
+      <!-- Scene 4: end card (11.8–15 s). -->
+      <section id="s4" class="clip backdrop" data-start="11.8" data-duration="3.2">
+        <div id="end-stack">
+          <div class="eyebrow">Your App</div>
+          <div class="headline">Your promise.</div>
+          <div class="body">One specific sentence about the result.</div>
+          <div class="cta">Get it on the App Store</div>
+        </div>
+      </section>
+    </div>
+    <script>
+      const { hook } = window.__hyperframes.getVariables();
+      const hookText = {
+        a: 'watch the <span class="hl">result</span> happen',
+        b: 'same input. <span class="hl">better result.</span>',
+        c: 'wait… <span class="hl">how</span> did it do that?',
+      };
+      document.getElementById("hook-text").innerHTML = hookText[hook] || hookText.a;
+      document.getElementById("root").dataset.hook = hook;
+      // Only the chosen hook's layers are visible.
+      for (const id of ["hook-a", "hook-a-media", "hook-c", "hook-c-media", "hook-b"]) {
+        const on = id.startsWith("hook-" + hook);
+        document.getElementById(id).style.opacity = on ? 1 : 0;
+      }
+
+      const tl = gsap.timeline({ paused: true });
+      // Scene 1: caption pops in, then holds (6 words ≈ 1.8 s settled).
+      tl.fromTo(".hook-cap .caption", { y: 30, opacity: 0, scale: 0.92 }, { y: 0, opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.6)" }, 0.15);
+      tl.fromTo("#hook-b .card", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.12, ease: "power3.out" }, 0);
+
+      // Scene 2: phone rises in, caption after; footage plays the real wipe.
+      tl.fromTo("#demo-phone", { opacity: 0, y: 140, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "power3.out" }, 2.6);
+      tl.fromTo("#demo-cap .caption", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 2.85);
+      tl.to("#demo-phone", { scale: 1.04, duration: 5, ease: "none" }, 3.2);
+      tl.to("#demo-phone", { opacity: 0, y: -60, duration: 0.3, ease: "power2.in" }, 7.9);
+
+      // Scene 3: headline, then cards; hold for reading.
+      tl.fromTo("#proof-head .headline", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 8.25);
+      tl.fromTo("#s3 .card", { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.14, ease: "power3.out" }, 8.35);
+      tl.fromTo("#s3 .pill.on", { scale: 0.8 }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, 9.0);
+
+      // Scene 4: end card builds, CTA lands with a small bounce.
+      tl.fromTo("#end-stack > *", { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, stagger: 0.12, ease: "power3.out" }, 11.85);
+      tl.fromTo("#end-stack .cta", { scale: 0.86 }, { scale: 1, duration: 0.5, ease: "back.out(2.2)" }, 12.3);
+
+      window.__timelines["reel"] = tl;
+    </script>
+  </body>
+</html>

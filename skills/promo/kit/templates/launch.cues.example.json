@@ -1,0 +1,60 @@
+{
+ "music": {
+  "src": "assets/music.wav",
+  "start": 0,
+  "duration": 19.2,
+  "volume": 0.8,
+  "fade_out": 1.2
+ },
+ "sfx": [
+  {
+   "src": "assets/sfx/pop.mp3",
+   "start": 1.0
+  },
+  {
+   "src": "assets/sfx/whoosh.mp3",
+   "start": 2.3
+  },
+  {
+   "src": "assets/sfx/sparkle.mp3",
+   "start": 3.85,
+   "volume": 0.3
+  },
+  {
+   "src": "assets/sfx/whoosh-short.mp3",
+   "start": 7.12
+  },
+  {
+   "src": "assets/sfx/whoosh-short.mp3",
+   "start": 11.92
+  },
+  {
+   "src": "assets/sfx/impact-bass-1.mp3",
+   "start": 14.4,
+   "volume": 0.4
+  },
+  {
+   "src": "assets/sfx/chime.mp3",
+   "start": 17.2,
+   "volume": 0.55
+  }
+ ],
+ "voice": [
+  {
+   "src": "assets/vo-1.wav",
+   "start": 2.75
+  },
+  {
+   "src": "assets/vo-2.wav",
+   "start": 7.6
+  },
+  {
+   "src": "assets/vo-3.wav",
+   "start": 12.25
+  },
+  {
+   "src": "assets/vo-4.wav",
+   "start": 14.55
+  }
+ ]
+}

@@ -1,0 +1,169 @@
+/* /promo building blocks for Hyperframes compositions.
+   Copy into <output-dir>/composition/kit/ and link it: <link rel="stylesheet" href="kit/promo.css" />
+   Set the brand once on the root:  #root { --brand: #7C9CFF; --ink: #070A12; } */
+
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/Inter.ttf") format("truetype");
+  font-weight: 100 900;
+}
+@font-face {
+  font-family: "DM Serif Display";
+  src: url("fonts/DMSerifDisplay-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+#root {
+  --brand: #7c9cff;
+  --ink: #050807;
+  --paper: #ffffff;
+  --sans: "Inter", sans-serif;
+  --serif: "DM Serif Display", serif;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--sans);
+}
+
+/* A full-frame scene box. Timed clips get class="clip". */
+.clip {
+  position: absolute;
+  inset: 0;
+}
+
+/* Brand backdrop: soft glow from the top. */
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 60% at 50% 0%, color-mix(in srgb, var(--brand) 26%, transparent), transparent 70%),
+    var(--ink);
+}
+
+/* ---------- Phone frame (generic, not an Apple product image) ----------
+   Size it with --w (frame width in px). The screen keeps the iPhone 1206x2622 aspect.
+   Put the <video>/<img> inside .phone-screen with class "fill". Never time the wrapper AND the video. */
+.phone {
+  --w: 560px;
+  position: absolute;
+  width: var(--w);
+  padding: calc(var(--w) * 0.028);
+  border-radius: calc(var(--w) * 0.16);
+  background: #0b0b0c;
+  box-shadow:
+    0 0 0 calc(var(--w) * 0.007) #2f3438,
+    0 0 0 calc(var(--w) * 0.011) #0b0b0c,
+    0 calc(var(--w) * 0.06) calc(var(--w) * 0.18) rgba(0, 0, 0, 0.55),
+    0 0 calc(var(--w) * 0.22) color-mix(in srgb, var(--brand) 22%, transparent);
+}
+.phone-screen {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1206 / 2622;
+  border-radius: calc(var(--w) * 0.135);
+  overflow: hidden;
+  background: #000;
+}
+.fill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* ---------- Text ---------- */
+/* Native-style caption: bold sans on a soft dark box. Wraps by max-width, never <br>. */
+.caption {
+  display: inline-block;
+  max-width: 860px;
+  padding: 18px 30px 20px;
+  border-radius: 22px;
+  background: rgba(0, 0, 0, 0.62);
+  font: 800 64px/1.08 var(--sans);
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+.caption .hl {
+  color: var(--brand);
+}
+.eyebrow {
+  font: 700 30px/1 var(--sans);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+.headline {
+  font: 400 104px/1.02 var(--serif);
+  letter-spacing: -0.01em;
+}
+.body {
+  font: 500 38px/1.35 var(--sans);
+  color: rgba(255, 255, 255, 0.72);
+}
+.footnote {
+  font: 500 24px/1.2 var(--sans);
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Small pill label: "Before", "After", "Illustrative example". */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  border: 2px solid rgba(255, 255, 255, 0.16);
+  font: 700 30px/1 var(--sans);
+}
+.pill.on {
+  border-color: color-mix(in srgb, var(--brand) 70%, transparent);
+}
+.pill .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+}
+.pill.on .dot {
+  background: var(--brand);
+  box-shadow: 0 0 10px var(--brand);
+}
+
+/* Call to action button. */
+.cta {
+  display: inline-block;
+  padding: 30px 64px;
+  border-radius: 999px;
+  background: var(--brand);
+  color: var(--ink);
+  font: 800 44px/1 var(--sans);
+  box-shadow: 0 16px 48px color-mix(in srgb, var(--brand) 45%, transparent);
+}
+
+/* App icon tile for end cards (use the real AppIcon PNG when the app has one). */
+.app-icon {
+  width: 180px;
+  height: 180px;
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.5);
+}
+
+/* Layout helpers that respect safe zones. Set per format on #root:
+   reel: --safe-top: 270px; --safe-bottom: 672px; --safe-side: 65px */
+.safe {
+  position: absolute;
+  top: var(--safe-top, 0px);
+  bottom: var(--safe-bottom, 0px);
+  left: var(--safe-side, 0px);
+  right: var(--safe-side, 0px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

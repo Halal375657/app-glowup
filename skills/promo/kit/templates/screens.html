@@ -1,0 +1,68 @@
+<!doctype html>
+<!-- App Store screenshots, 6.9" (1320x2868). One still per variable value; export with snapshot, then strip alpha.
+     Screenshots must show the app in use (2.3.3). Captions, background and a device frame are allowed. No prices. -->
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"n","type":"enum","label":"Screenshot","default":"1","options":[{"value":"1","label":"1"},{"value":"2","label":"2"}]}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1320, height=2868" />
+    <title>App Store screenshots</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="kit/promo.css" />
+    <style>
+      .top {
+        position: absolute;
+        top: 170px;
+        left: 90px;
+        right: 90px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        text-align: center;
+      }
+      .top .eyebrow {
+        font-size: 36px;
+      }
+      .top .headline {
+        font-size: 128px;
+        line-height: 1.06;
+      }
+      #shot-phone {
+        --w: 940px;
+        left: 190px;
+        top: 700px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="screens" data-start="0" data-duration="1" data-width="1320" data-height="2868">
+      <div class="backdrop"></div>
+      <div class="top">
+        <div id="s-eyebrow" class="eyebrow">Your App</div>
+        <div id="s-head-1" class="headline">Your promise.</div>
+        <div id="s-head-2" class="headline">In one line.</div>
+      </div>
+      <div id="shot-phone" class="phone">
+        <div class="phone-screen"><img id="s-img" class="fill" src="assets/shot-01.png" alt="" /></div>
+      </div>
+    </div>
+    <script>
+      const { n } = window.__hyperframes.getVariables();
+      const slides = {
+        1: { eyebrow: "Your App", h1: "Your promise.", h2: "In one line.", img: "assets/shot-01.png" },
+        2: { eyebrow: "Feature two", h1: "Shown in use.", h2: "Not described.", img: "assets/shot-02.png" },
+      };
+      const s = slides[n] || slides[1];
+      document.getElementById("s-eyebrow").textContent = s.eyebrow;
+      document.getElementById("s-head-1").textContent = s.h1;
+      document.getElementById("s-head-2").textContent = s.h2;
+      document.getElementById("s-img").src = s.img;
+      window.__timelines["screens"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

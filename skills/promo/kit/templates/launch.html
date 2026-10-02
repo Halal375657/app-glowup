@@ -1,0 +1,223 @@
+<!doctype html>
+<!-- Launch video (like /brag), 1920x1080, 19.2 s on a 100 bpm bar grid (2.4 s bars), tone: default (playful, clean).
+     Hook -> Reveal -> 2 highlights -> Punchline/outro. Real app footage only. -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Launch video</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="kit/promo.css" />
+    <style>
+      .hook {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      .hook .big {
+        font: 400 150px/1.08 var(--serif);
+        letter-spacing: -0.01em;
+      }
+      .hook .big.hl {
+        color: var(--brand);
+      }
+      /* Text column beside the phone; sides alternate between scenes. */
+      .words {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 900px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 28px;
+      }
+      .words.left {
+        left: 140px;
+      }
+      .words.right {
+        left: 900px;
+      }
+      .words .headline {
+        font-size: 104px;
+        line-height: 1.08;
+      }
+      .words .num {
+        font: 800 34px/1 var(--sans);
+        color: var(--brand);
+        letter-spacing: 0.1em;
+      }
+      .words .body {
+        font-size: 42px;
+        max-width: 760px;
+      }
+      #phone-a {
+        --w: 430px;
+        left: 1290px;
+        top: 60px;
+      }
+      #phone-b {
+        --w: 430px;
+        left: 230px;
+        top: 60px;
+      }
+      .pair {
+        position: absolute;
+        top: 300px;
+        left: 260px;
+        right: 260px;
+        display: flex;
+        gap: 40px;
+      }
+      .card {
+        position: relative;
+        flex: 1;
+        height: 640px;
+        border-radius: 40px;
+        overflow: hidden;
+        border: 2px solid rgba(255, 255, 255, 0.14);
+      }
+      .card img {
+        position: absolute;
+        width: 135%;
+        height: auto;
+        left: -22%;
+        top: -230px; /* past the app's own Before/After pill */
+      }
+      .card .pill {
+        position: absolute;
+        left: 24px;
+        top: 24px;
+      }
+      #h2-head {
+        position: absolute;
+        top: 110px;
+        left: 0;
+        right: 0;
+        text-align: center;
+      }
+      #h2-head .headline {
+        font-size: 96px;
+      }
+      #outro {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 34px;
+        text-align: center;
+      }
+      #outro .headline {
+        font-size: 128px;
+        line-height: 1.08;
+      }
+      #punch {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #punch .headline {
+        font-size: 150px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="launch" data-start="0" data-duration="19.2" data-width="1920" data-height="1080">
+      <!-- 1. Hook (0–2.6) -->
+      <section id="s-hook" class="clip" data-start="0" data-duration="2.4">
+        <div class="hook">
+          <div class="big">Your hook</div>
+          <div class="big hl">in one line.</div>
+        </div>
+      </section>
+
+      <!-- 2. Reveal (2.6–6.4): name + promise, phone with the hero dissolving on the right -->
+      <section id="s-reveal" class="clip backdrop" data-start="2.4" data-duration="4.8">
+        <div class="words left">
+          <div class="eyebrow">Introducing</div>
+          <div class="headline">Your App</div>
+          <div class="body">Your promise, in one line.</div>
+        </div>
+      </section>
+      <div id="phone-a" class="phone">
+        <div class="phone-screen">
+          <video id="v-reveal" class="fill" src="assets/S1.mp4" muted playsinline data-start="2.4" data-duration="4.8" data-media-start="3.2"></video>
+        </div>
+      </div>
+
+      <!-- 3. Highlight 1 (6.4–10.6): the compare slider, phone on the left -->
+      <section id="s-h1" class="clip backdrop" data-start="7.2" data-duration="4.8">
+        <div class="words right">
+          <div class="num">01</div>
+          <div class="headline">Feature one.</div>
+          <div class="body">Drag to compare your before and after.</div>
+        </div>
+      </section>
+      <div id="phone-b" class="phone">
+        <div class="phone-screen">
+          <video id="v-h1" class="fill" src="assets/S2.mp4" muted playsinline data-start="7.2" data-duration="4.8" data-media-start="3.0"></video>
+        </div>
+      </div>
+
+      <!-- 4. Highlight 2 (10.6–14.4): close-up proof -->
+      <section id="s-h2" class="clip backdrop" data-start="12" data-duration="2.4">
+        <div id="h2-head"><div class="headline">Proof, up close.</div></div>
+        <div class="pair">
+          <div class="card" data-layout-allow-overflow><img src="assets/still-before.png" alt="" /><span class="pill"><span class="dot"></span>Before</span></div>
+          <div class="card" data-layout-allow-overflow><img src="assets/still-after.png" alt="" /><span class="pill on"><span class="dot"></span>After</span></div>
+        </div>
+      </section>
+
+      <!-- 5. Punchline (14.4–16) then outro (16–18.5) -->
+      <section id="s-punch" class="clip" data-start="14.4" data-duration="2.4">
+        <div id="punch"><div class="headline">Problem? Handled.</div></div>
+      </section>
+      <section id="s-outro" class="clip backdrop" data-start="16.8" data-duration="2.4">
+        <div id="outro">
+          <div class="eyebrow">Your App</div>
+          <div class="headline">Your promise.</div>
+          <div class="cta">On the App Store</div>
+        </div>
+      </section>
+
+      <!-- AUDIO:BEGIN -->
+      <!-- AUDIO:END -->
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      // Hook: two lines, the second lands with the pop.
+      tl.fromTo(".hook .big:nth-child(1)", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 0.15);
+      tl.fromTo(".hook .big:nth-child(2)", { y: 40, opacity: 0, scale: 0.9 }, { y: 0, opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 1.0);
+
+      // Reveal: words stagger in, phone slides from the right.
+      tl.fromTo("#phone-a", { opacity: 0, x: 160 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, 2.4); // beat-locked: drums drop at 2.4
+      tl.fromTo("#s-reveal .words > *", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.13, ease: "power3.out" }, 2.5);
+      tl.to("#phone-a", { opacity: 0, x: 80, duration: 0.3, ease: "power2.in" }, 6.9);
+
+      // Highlight 1: phone from the left, words on the right.
+      tl.fromTo("#phone-b", { opacity: 0, x: -160 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, 7.2); // beat-locked
+      tl.fromTo("#s-h1 .words > *", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.12, ease: "power3.out" }, 7.35);
+      tl.to("#phone-b", { opacity: 0, x: -80, duration: 0.3, ease: "power2.in" }, 11.7);
+
+      // Highlight 2: headline then cards.
+      tl.fromTo("#h2-head .headline", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 12.0); // beat-locked
+      tl.fromTo("#s-h2 .card", { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, stagger: 0.15, ease: "power3.out" }, 12.1);
+      tl.fromTo("#s-h2 .pill.on", { scale: 0.8 }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, 12.9);
+
+      // Punchline slams in with the impact; outro builds.
+      tl.fromTo("#punch .headline", { scale: 1.25, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "power4.out" }, 14.4); // beat-locked
+      tl.fromTo("#outro > *", { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, stagger: 0.12, ease: "power3.out" }, 16.8); // beat-locked
+      tl.fromTo("#outro .cta", { scale: 0.86 }, { scale: 1, duration: 0.5, ease: "back.out(2.2)" }, 17.2);
+
+      window.__timelines["launch"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "app-glowup",
+  "version": "0.2.0",
+  "description": "Give your iOS app a glow-up: /onboard builds animated SwiftUI onboarding; /promo makes launch videos, ads, App Store previews, screenshots and UGC kits from your app's real features. Free or paid (fal) audio.",
+  "author": {
+    "name": "Halal Uddin"
+  },
+  "homepage": "https://github.com/Halal375657/app-glowup",
+  "repository": "https://github.com/Halal375657/app-glowup",
+  "license": "MIT",
+  "keywords": [
+    "ads",
+    "animation",
+    "app-store",
+    "fal",
+    "hyperframes",
+    "image-generation",
+    "ios",
+    "marketing",
+    "onboarding",
+    "swiftui",
+    "ugc",
+    "video",
+    "xcode"
+  ]
+}

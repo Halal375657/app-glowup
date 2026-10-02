@@ -1,0 +1,177 @@
+<!doctype html>
+<!-- Feed (4:5) and square (1:1) layout. Generated per format by make_box.py: {{W}}x{{H}}. -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width={{W}}, height={{H}}" />
+    <title>{{TITLE}}</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="kit/promo.css" />
+    <style>
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+      #hook-media {
+        z-index: 1;
+      }
+      .scrim {
+        position: absolute;
+        inset: {{SCRIM_TOP}}px 0 0 0;
+        z-index: 2;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.9) 35%, #000 70%);
+      }
+      .hook-cap {
+        position: absolute;
+        z-index: 3;
+        top: {{CAP_TOP}}px;
+        left: 60px;
+        right: 60px;
+        display: flex;
+        justify-content: center;
+      }
+      /* Scene 2: phone left, words right. */
+      #demo-phone {
+        --w: {{PHONE_W}}px;
+        left: 90px;
+        top: {{PHONE_TOP}}px;
+      }
+      .side {
+        position: absolute;
+        left: {{SIDE_LEFT}}px;
+        right: 70px;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 26px;
+      }
+      .side .headline {
+        font-size: {{SIDE_HEAD}}px;
+        line-height: 1.1;
+      }
+      .side .eyebrow {
+        font-size: 24px;
+      }
+      .side .body {
+        font-size: 34px;
+      }
+      /* Scene 3: proof cards. */
+      #proof-head {
+        position: absolute;
+        top: {{PROOF_HEAD_TOP}}px;
+        left: 60px;
+        right: 60px;
+        text-align: center;
+      }
+      #proof-head .headline {
+        font-size: {{PROOF_HEAD}}px;
+        line-height: 1.12;
+      }
+      .pair {
+        position: absolute;
+        top: {{PAIR_TOP}}px;
+        left: 60px;
+        right: 60px;
+        display: flex;
+        gap: 20px;
+      }
+      .card {
+        position: relative;
+        flex: 1;
+        height: {{CARD_H}}px;
+        border-radius: 32px;
+        overflow: hidden;
+        border: 2px solid rgba(255, 255, 255, 0.14);
+      }
+      .card img {
+        position: absolute;
+        width: 161%;
+        height: auto;
+        left: -33%;
+        top: -126px; /* fixed px so taller cards don't reveal the app's own text below the face */
+      }
+      .card .pill {
+        position: absolute;
+        left: 18px;
+        top: 18px;
+      }
+      #proof-foot {
+        position: absolute;
+        bottom: {{FOOT_BOTTOM}}px;
+        left: 0;
+        right: 0;
+        text-align: center;
+      }
+      #end-stack {
+        position: absolute;
+        inset: 0 60px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="{{ID}}" data-start="0" data-duration="15" data-width="{{W}}" data-height="{{H}}">
+      <section id="s1" class="clip" data-start="0" data-duration="2.6">
+        <div class="scrim"></div>
+        <div class="hook-cap"><span class="caption">watch the <span class="hl">result</span> happen</span></div>
+      </section>
+      <div id="hook-media" class="layer">
+        <video id="v-hook" class="fill" src="assets/S1.mp4" muted playsinline data-start="0" data-duration="2.6" data-media-start="4.0"></video>
+      </div>
+
+      <section id="s2" class="clip backdrop" data-start="2.6" data-duration="5.6">
+        <div class="side">
+          <div class="eyebrow">Your App</div>
+          <div class="headline">One tap.</div><div class="headline">Real result.</div>
+          <div class="body">One specific sentence about what the user gets.</div>
+        </div>
+      </section>
+      <div id="demo-phone" class="phone">
+        <div class="phone-screen">
+          <video id="v-demo" class="fill" src="assets/S2.mp4" muted playsinline data-start="2.6" data-duration="5.6" data-media-start="3.0"></video>
+        </div>
+      </div>
+
+      <section id="s3" class="clip backdrop" data-start="8.2" data-duration="3.6">
+        <div id="proof-head"><div class="headline">Your promise.</div><div class="headline">In one line.</div></div>
+        <div class="pair">
+          <div class="card" data-layout-allow-overflow><img src="assets/still-before.png" alt="" /><span class="pill"><span class="dot"></span>Before</span></div>
+          <div class="card" data-layout-allow-overflow><img src="assets/still-after.png" alt="" /><span class="pill on"><span class="dot"></span>After</span></div>
+        </div>
+        <div id="proof-foot"><span class="footnote">Illustrative example</span></div>
+      </section>
+
+      <section id="s4" class="clip backdrop" data-start="11.8" data-duration="3.2">
+        <div id="end-stack">
+          <div class="eyebrow">Your App</div>
+          <div class="headline">Your promise.</div>
+          <div class="body">One specific sentence about the result.</div>
+          <div class="cta">Get it on the App Store</div>
+        </div>
+      </section>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo(".hook-cap .caption", { y: 30, opacity: 0, scale: 0.92 }, { y: 0, opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.6)" }, 0.15);
+
+      tl.fromTo("#demo-phone", { opacity: 0, x: -80 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, 2.6);
+      tl.fromTo(".side > *", { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, stagger: 0.12, ease: "power3.out" }, 2.8);
+      tl.to("#demo-phone", { opacity: 0, duration: 0.3, ease: "power2.in" }, 7.9);
+
+      tl.fromTo("#proof-head .headline", { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, stagger: 0.1, ease: "power3.out" }, 8.25);
+      tl.fromTo("#s3 .card", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.14, ease: "power3.out" }, 8.35);
+
+      tl.fromTo("#end-stack > *", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, stagger: 0.12, ease: "power3.out" }, 11.85);
+      tl.fromTo("#end-stack .cta", { scale: 0.86 }, { scale: 1, duration: 0.5, ease: "back.out(2.2)" }, 12.3);
+
+      window.__timelines["{{ID}}"] = tl;
+    </script>
+  </body>
+</html>

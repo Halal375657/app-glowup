@@ -1,0 +1,62 @@
+<!doctype html>
+<!-- App Store app preview: screen captures of the app only (Guideline 2.3.4). Text overlays are allowed;
+     no device frame, people, hands or generated art. 886x1920, 20 s, 30 fps. Strongest frame at 5 s (default poster). -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=886, height=1920" />
+    <title>App Store preview</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="kit/promo.css" />
+    <style>
+      .cap-band {
+        position: absolute;
+        top: 70px;
+        left: 50px;
+        right: 50px;
+        height: 170px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .cap-band .headline {
+        font-size: 64px;
+        line-height: 1.1;
+      }
+      /* The capture, scaled to leave room for the caption band. Not a device frame: plain rounded crop. */
+      .screen {
+        position: absolute;
+        left: 80px;
+        top: 290px;
+        width: 726px;
+        height: 1578px;
+        border-radius: 44px;
+        overflow: hidden;
+        background: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="preview" data-start="0" data-duration="20" data-width="886" data-height="1920">
+      <div class="backdrop"></div>
+      <section id="c1" class="clip" data-start="0" data-duration="9.9">
+        <div class="cap-band"><div class="headline">Your main benefit</div></div>
+      </section>
+      <section id="c2" class="clip" data-start="9.9" data-duration="10.1">
+        <div class="cap-band"><div class="headline">Compare before and after</div></div>
+      </section>
+      <div class="screen">
+        <video id="v1" class="fill" src="assets/S1.mp4" muted playsinline data-start="0" data-duration="9.9" data-media-start="2.6"></video>
+        <video id="v2" class="fill" src="assets/S2.mp4" muted playsinline data-start="9.9" data-duration="10.1" data-media-start="3.0"></video>
+      </div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#c1 .headline", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 0.3);
+      tl.to("#c1 .headline", { opacity: 0, duration: 0.25 }, 9.6);
+      tl.fromTo("#c2 .headline", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 10.0);
+      window.__timelines["preview"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<!-- UGC kit: hook caption on a TRANSPARENT background, for editors to drop over any footage. 1080x1920, 3 s.
+     Render once per hook with --variables '{"hook":"a"}' and --format mov / webm. -->
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"hook","type":"enum","label":"Hook","default":"a","options":[{"value":"a","label":"A"},{"value":"b","label":"B"},{"value":"c","label":"C"}]}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Hook caption overlay</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="kit/promo.css" />
+    <style>
+      html,
+      body,
+      #root {
+        background: transparent;
+      }
+      .hook-cap {
+        position: absolute;
+        top: 1010px;
+        left: 65px;
+        right: 65px;
+        display: flex;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="hooks" data-start="0" data-duration="3" data-width="1080" data-height="1920">
+      <div class="hook-cap"><span id="hook-text" class="caption">watch the <span class="hl">result</span> happen</span></div>
+    </div>
+    <script>
+      const { hook } = window.__hyperframes.getVariables();
+      const hookText = {
+        a: 'watch the <span class="hl">result</span> happen',
+        b: 'same input. <span class="hl">better result.</span>',
+        c: 'wait… <span class="hl">how</span> did it do that?',
+      };
+      document.getElementById("hook-text").innerHTML = hookText[hook] || hookText.a;
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#hook-text", { y: 30, opacity: 0, scale: 0.92 }, { y: 0, opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.6)" }, 0.1);
+      tl.to("#hook-text", { opacity: 0, duration: 0.25 }, 2.7);
+      window.__timelines["hooks"] = tl;
+    </script>
+  </body>
+</html>
